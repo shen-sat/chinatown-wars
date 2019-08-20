@@ -18,12 +18,15 @@ class Intro extends Phaser.Scene {
 		this.textBeingWritten = false;
 		this.keyA = this.input.keyboard.addKey('A');
 		this.prevKeyA = false;
+		this.textFinished = false;
+		console.log(this.textChunks.length);
 		// this.scene.start('LevelOne'); THIS SWITCHES TO NEXT SCENE
 	}
 
 	update() {
 		//This only allows a key to be registered if it is down, and it has not been down before and text is not being written
-		if (this.keyA.isDown && !this.prevKeyA && !this.textBeingWritten) {
+		if (this.keyA.isDown && !this.prevKeyA && !this.textBeingWritten && this.textFinished == false) {
+			if (this.textChunksCounter == this.textChunks.length - 1) { this.textFinished = true }
 			this.textToDisplay = ""
 			this.startTextEvent();
 			this.textBeingWritten = true;
