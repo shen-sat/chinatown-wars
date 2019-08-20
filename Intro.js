@@ -9,7 +9,7 @@ class Intro extends Phaser.Scene {
 	}
 
 	create() {
-		this.textChunks = ["Hello", "\nworld"];
+		this.textChunks = ["Hello", "world"];
 		this.textChunksCounter = 0;
 		this.letterCounter = 0;
 		this.text = "";
@@ -24,6 +24,7 @@ class Intro extends Phaser.Scene {
 	update() {
 		//This only allows a key to be registered if it is down, and it has not been down before and text is not being written
 		if (this.keyA.isDown && !this.prevKeyA && !this.textBeingWritten) {
+			this.textToDisplay = ""
 			this.startTextEvent();
 			this.textBeingWritten = true;
 			this.letterCounter = 0;
