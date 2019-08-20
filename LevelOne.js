@@ -12,14 +12,6 @@ class LevelOne extends Phaser.Scene {
 	}
 
 	create() {
-		//Game text
-		
-		this.textSplit = this.text.split("");
-		this.counter = 0;
-		this.displayText = "";
-		this.trigger = this.input.keyboard.addKey('W'); 
-		
-		// this.foobar(this.textSplit);
 
 		
 		this.road = this.add.tileSprite(128, 256, 32, 128, "road-bg");
@@ -68,13 +60,6 @@ class LevelOne extends Phaser.Scene {
 	}
 
 	update() {
-		//Text
-		if (this.trigger.isDown && !this.prevKeyW) {
-			this.bar();
-			this.prevKeyW = true;
-		} else if (this.trigger.isUp) {
-			this.prevKeyW = false
-		}
 		// this.line = this.add.text(256, 256, this.counter.toString(), { fontFamily: 'font1', fontSize: 30 });
 		if (this.car.y < this.gameWindowHeight/2) { this.carAtScreenHalfway = true }; 
 		//Moving forward and backwards
@@ -142,18 +127,6 @@ class LevelOne extends Phaser.Scene {
 			this.shenPresentsPresent = false; 
 		}
 
-	}
-
-	foo() {
-		this.displayText = this.displayText.concat(this.textSplit[this.counter]);
-		if (this.line) { this.line.destroy() }
-		this.line = this.add.text(256, 256, this.displayText, { fontFamily: 'font1', fontSize: 30 });
-		this.counter += 1;
-
-
-	} 
-	bar() {
-		this.time.addEvent({ delay: 100, callback: this.foo, callbackScope: this, repeat: this.textSplit.length - 1 });
 	}
 	
 

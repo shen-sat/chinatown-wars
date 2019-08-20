@@ -18,7 +18,7 @@ class Intro extends Phaser.Scene {
 		this.textBeingWritten = false;
 		this.keyA = this.input.keyboard.addKey('A');
 		this.prevKeyA = false;
-		//this.scene.start('LevelOne'); TO START NEXT SCENE!
+		this.scene.start('LevelOne');
 	}
 
 	update() {
