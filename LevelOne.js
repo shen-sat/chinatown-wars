@@ -8,11 +8,13 @@ class LevelOne extends Phaser.Scene {
 		this.load.image('car', 'assets/car.png');
 		this.load.image('road-bg', 'assets/road-bg.png');
 		this.load.image('shen-presents', 'assets/shen-presents.png');
-		this.load.audio('theme','assets/theme.mp3');
+		this.load.audio('theme','assets/theme-short.mp3');
+		
+		
 	}
 
 	create() {
-
+		
 		
 		this.road = this.add.tileSprite(128, 256, 32, 128, "road-bg");
 		// this.physics.add.existing(this.road, true);
@@ -47,6 +49,7 @@ class LevelOne extends Phaser.Scene {
 		this.physics.add.collider(this.car, this.roadBorders);
 
 		this.music = this.sound.add('theme');
+		
 
 		
 		this.music.play();

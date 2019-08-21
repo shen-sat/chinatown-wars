@@ -5,25 +5,26 @@ class Intro extends Phaser.Scene {
 	}
 
 	preload() {
-
+		this.load.audio('car-door-sound','assets/car-door.mp3');
+		this.load.audio('start-car-sound','assets/start-car.mp3');
 	}
 
 	create() {
 		this.textChunks = [
 		"YHuang Lee?", 
-		"HUncle Yiu!", 
-		"HFancy seeing you parked here outside Liberty City Prison on my first day of freedom [GRINS]",
-		"YIt’s no coincidence, Huang.", 
-		"YI’m here to pick you up before you have a chance to get into trouble.",
-		"HHold up. [WINKS] you’re NOT here to take me to a strip club?",
-		"Y[FROWNS] Real funny. Have you any idea of the trouble you’ve caused us?",
-		"YOur family honour is besmirched!",
-		"H[LAUGHS] Besmirched? Uncle, it’s 2019, not 1403",
-		"HLook, if you’re not going to let me party, at least let me get behind the wheel",
-		"H[SMILES] Remember teaching me to drive when I was a kid, all those years ago?",
-		"Y[RELUCTANTLY SMILES] I remember, Huang",
-		"YFine. you drive. Head to your father’s house.",
-		"YAnd try not to get us into trouble, ok?"
+		"HUncle Yiu!" 
+		// "HFancy seeing you parked here outside Liberty City Prison on my first day of freedom [GRINS]",
+		// "YIt’s no coincidence, Huang.", 
+		// "YI’m here to pick you up before you have a chance to get into trouble.",
+		// "HHold up. [WINKS] you’re NOT here to take me to a strip club?",
+		// "Y[FROWNS] Real funny. Have you any idea of the trouble you’ve caused us?",
+		// "YOur family honour is besmirched!",
+		// "H[LAUGHS] Besmirched? Uncle, it’s 2019, not 1403",
+		// "HLook, if you’re not going to let me party, at least let me get behind the wheel",
+		// "H[SMILES] Remember teaching me to drive when I was a kid, all those years ago?",
+		// "Y[RELUCTANTLY SMILES] I remember, Huang",
+		// "YFine. you drive. Head to your father’s house.",
+		// "YAnd try not to get us into trouble, ok?"
 		]
 		this.textChunksCounter = 0;
 		this.letterCounter = 0;
@@ -34,7 +35,9 @@ class Intro extends Phaser.Scene {
 		this.keyA = this.input.keyboard.addKey('A');
 		this.prevKeyA = false;
 		this.textFinished = false;
-		console.log(this.textChunks.length);
+
+		this.carDoorSound = this.sound.add('car-door-sound');
+		this.carDoorSoundStarted = false;
 		
 	}
 
@@ -51,7 +54,14 @@ class Intro extends Phaser.Scene {
 			this.prevKeyA = false;
 		}
 		if (this.keyA.isDown && this.textFinished && this.textBeingWritten == false ) {
-			this.scene.start('LevelOne');	
+			if (this.line) { this.line.destroy() };
+			this.carDoorSound.play();
+			this.carDoorSoundStarted = true;
+		}
+		if (this.carDoorSoundStarted && !this.carDoorSound.isPlaying) {
+			this.startCarSound = this.sound.add('start-car-sound');
+			this.startCarSound.play();
+			this.time.addEvent({ delay: 5000000000, callback: this.scene.start('LevelOne'), callbackScope: this});	
 		}
 		
 
