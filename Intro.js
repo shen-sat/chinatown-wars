@@ -40,10 +40,6 @@ class Intro extends Phaser.Scene {
 
 	update() {
 		//This only allows a key to be registered if it is down, and it has not been down before and text is not being written
-		if (this.keyA.isDown && this.textFinished ) {
-			this.scene.start('LevelOne');	
-		}
-
 		if (this.keyA.isDown && !this.prevKeyA && !this.textBeingWritten && this.textFinished == false) {
 			if (this.textChunksCounter == this.textChunks.length - 1) { this.textFinished = true }
 			this.textToDisplay = ""
@@ -53,6 +49,9 @@ class Intro extends Phaser.Scene {
 			this.prevKeyA = true;
 		} else if (this.keyA.isUp) {
 			this.prevKeyA = false;
+		}
+		if (this.keyA.isDown && this.textFinished && this.textBeingWritten == false ) {
+			this.scene.start('LevelOne');	
 		}
 		
 
