@@ -8,6 +8,7 @@ class LevelOne extends Phaser.Scene {
 		this.load.image('car', 'assets/car.png');
 		this.load.image('road-bg', 'assets/road-bg.png');
 		this.load.image('shen-presents', 'assets/shen-presents.png');
+		this.load.image('de-make', 'assets/a-de-make-production.png');
 		this.load.audio('theme','assets/theme-short.mp3');
 		
 		
@@ -53,6 +54,8 @@ class LevelOne extends Phaser.Scene {
 
 		
 		this.music.play();
+		this.music.volume = 0.09;
+
 		this.music.mute = true;
 		this.music.seek = 15;
 		this.shenPresentsPresent = false;
@@ -63,6 +66,8 @@ class LevelOne extends Phaser.Scene {
 	}
 
 	update() {
+		console.log(this.music.volume);
+
 		// this.line = this.add.text(256, 256, this.counter.toString(), { fontFamily: 'font1', fontSize: 30 });
 		if (this.car.y < this.gameWindowHeight/2) { this.carAtScreenHalfway = true }; 
 		//Moving forward and backwards
@@ -122,7 +127,7 @@ class LevelOne extends Phaser.Scene {
 		}
 
 		if (this.music.seek > 25 && this.shenPresentsPresent == false) {
-			this.shenPresents = this.add.image(350, 256, 'shen-presents');
+			this.shenPresents = this.add.image(350, 256, 'de-make');
 			this.shenPresentsPresent = true;
 		}
 		if (this.music.seek > 28) {
