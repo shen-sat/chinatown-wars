@@ -9,6 +9,8 @@ class LevelOne extends Phaser.Scene {
 		this.load.image('road-bg', 'assets/road-bg.png');
 		this.load.image('shen-presents', 'assets/shen-presents.png');
 		this.load.image('de-make', 'assets/a-de-make-production.png');
+		this.load.image('logo', 'assets/logo.png');
+		this.load.image('coming-soon', 'assets/coming-soon.png');
 		this.load.audio('theme','assets/theme-short.mp3');
 		
 		
@@ -50,24 +52,31 @@ class LevelOne extends Phaser.Scene {
 		this.physics.add.collider(this.car, this.roadBorders);
 
 		this.music = this.sound.add('theme');
+		this.musicVolume = 0.2;
+		this.music.setVolume(this.musicVolume);
 		
 
 		
 		this.music.play();
-		this.music.volume = 0.09;
 
 		this.music.mute = true;
 		this.music.seek = 15;
-		this.shenPresentsPresent = false;
+		this.shenPresentsDone = false;
+		this.demakeDone = false;
+		this.logoDone = false;
+		this.comingSoonDone = false;
 		this.prevKeyW = false;
+		this.finished = false;
+		this.soundDecreaser = 0.005
+
+
+
 		
 
 		
 	}
 
 	update() {
-		console.log(this.music.volume);
-
 		// this.line = this.add.text(256, 256, this.counter.toString(), { fontFamily: 'font1', fontSize: 30 });
 		if (this.car.y < this.gameWindowHeight/2) { this.carAtScreenHalfway = true }; 
 		//Moving forward and backwards
@@ -117,24 +126,52 @@ class LevelOne extends Phaser.Scene {
 		}
 		// console.log(this.music.seek);
 		
-		if (this.music.seek > 20 && this.shenPresentsPresent == false) {
+		if (this.music.seek > 20 && this.shenPresentsDone == false) {
 			this.shenPresents = this.add.image(350, 256, 'shen-presents');
-			this.shenPresentsPresent = true;
+			this.shenPresentsDone = true;
 		}
 		if (this.music.seek > 23) {
-			this.shenPresents.destroy();
-			this.shenPresentsPresent = false; 
+			if (this.shenPresents) { this.shenPresents.destroy() }; 
 		}
 
-		if (this.music.seek > 25 && this.shenPresentsPresent == false) {
-			this.shenPresents = this.add.image(350, 256, 'de-make');
-			this.shenPresentsPresent = true;
+		if (this.music.seek > 25 && this.demakeDone == false) {
+			this.demake = this.add.image(350, 256, 'de-make');
+			this.demakeDone = true;
 		}
 		if (this.music.seek > 28) {
-			this.shenPresents.destroy();
-			this.shenPresentsPresent = false; 
+			if (this.demake) { this.demake.destroy() };  
 		}
+		if (this.music.seek > 30 && this.logoDone == false) {
+			this.logo = this.add.image(350, 256, 'logo');
+			this.logo.setScale(0.75);
+			this.logoDone = true;
+		}
+		if (this.music.seek > 35.5) {
+			if (this.logo) { this.logo.destroy() };  
+		}
+		if (this.music.seek > 35.5 && this.comingSoonDone == false) {
+			this.comingSoon = this.add.image(350, 256, 'coming-soon');
+			this.comingSoonDone = true;
+		}
+		if (this.music.seek > 35.5 && this.finished == false) {
+			this.fadeOutEverything();
+			this.finished = true;
+		}
+		
+		// if (this.music.config.volume > 0) {this.music.stop()}
+		if (this.music.seek > 10) {
+			this.musicVolume = this.musicVolume - 0.0005;
+			this.music.setVolume(this.musicVolume);
+			console.log(this.music.config.volume);
+			
+		}
+		if (this.music.config.volume < 0) {this.music.stop()}
+		//30 logo appears, 35 coming soon appears and fade to black and volume decreases
 
+	}
+
+	fadeOutEverything() {
+		this.cameras.main.fadeOut(5000);
 	}
 	
 
