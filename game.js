@@ -9,9 +9,6 @@ const config = {
 	autoCenter: Phaser.Scale.Center.CENTER_BOTH,
 	physics: {
 		default: 'arcade',
-		arcade: {
-        	debug: true
-        }
 	},
 	scene: [ Intro, LevelOne ]
 };
