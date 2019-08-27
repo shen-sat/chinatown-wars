@@ -141,7 +141,7 @@ class LevelOne extends Phaser.Scene {
 		if (this.music.seek > 28) {
 			if (this.demake) { this.demake.destroy() };  
 		}
-		if (this.music.seek > 30 && this.logoDone == false) {
+		if (this.music.seek > 30.2 && this.logoDone == false) {
 			this.logo = this.add.image(350, 256, 'logo');
 			this.logo.setScale(0.75);
 			this.logoDone = true;
@@ -153,13 +153,13 @@ class LevelOne extends Phaser.Scene {
 			this.comingSoon = this.add.image(350, 256, 'coming-soon');
 			this.comingSoonDone = true;
 		}
-		if (this.music.seek > 35.5 && this.finished == false) {
+		if (this.music.seek > 40 && this.finished == false) {
 			this.fadeOutEverything();
 			this.finished = true;
 		}
 		
 		// if (this.music.config.volume > 0) {this.music.stop()}
-		if (this.music.seek > 10) {
+		if (this.music.seek > 40) {
 			this.musicVolume = this.musicVolume - 0.0005;
 			this.music.setVolume(this.musicVolume);
 			console.log(this.music.config.volume);
